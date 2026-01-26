@@ -74,7 +74,8 @@ public final class TotemProtecaoCraftSystem extends EntityEventSystem<EntityStor
                      event.setCancelled(true);
                      PlayerRef player = (PlayerRef) chunk.getComponent(entityIndex, PlayerRef.getComponentType());
                      if (player != null) {
-                        this.plugin.sendPlayerMessage(player, "Craft do TotemProtecao esta desativado neste servidor");
+                        this.plugin.sendPlayerMessage(player,
+                              "El crafteo del TotemProtecao esta desactivado en este servidor");
                      }
 
                   }

@@ -37,8 +37,8 @@ public final class TotemProtecaoBorderToggleElement extends ChoiceElement {
             on = this.plugin.isBorderEnabled(playerRef.getUuid(), key);
          }
 
-         commands.set(selector + " #Name.TextSpans", Message.raw("MOSTRAR BORDA"));
-         commands.set(selector + " #Durability.Text", on ? "LIGADA" : "DESLIGADA");
+         commands.set(selector + " #Name.TextSpans", Message.raw("MOSTRAR BORDE"));
+         commands.set(selector + " #Durability.Text", on ? "ACTIVADA" : "DESACTIVADA");
       }
    }
 }

@@ -34,9 +34,9 @@ public final class TotemProtecaoTrustAddInteraction extends ChoiceInteraction {
                UUID actor = playerRef.getUuid();
                if (actor != null) {
                   if (!this.plugin.isOpBypass(actor) && !claim.getOwner().equals(actor)) {
-                     this.plugin.sendPlayerMessage(playerRef, "Somente o dono pode adicionar amigos");
+                     this.plugin.sendPlayerMessage(playerRef, "Solo el propietario puede agregar amigos");
                   } else if (this.target.equals(claim.getOwner())) {
-                     this.plugin.sendPlayerMessage(playerRef, "O dono ja tem acesso total");
+                     this.plugin.sendPlayerMessage(playerRef, "El propietario ya tiene acceso total");
                   } else {
                      if (this.username != null && !this.username.isEmpty()) {
                         this.plugin.rememberUsername(this.target, this.username);

@@ -44,10 +44,10 @@ public final class TotemProtecaoTrustElement extends ChoiceElement {
          }
 
          if (this.header) {
-            commands.set(selector + " #Name.TextSpans", Message.raw("AMIGOS / PERMISSÕES"));
-            commands.set(selector + " #Durability.Text", "Sel. um jogador para alt. perm.");
+            commands.set(selector + " #Name.TextSpans", Message.raw("AMIGOS / PERMISOS"));
+            commands.set(selector + " #Durability.Text", "Sel. un jugador para cambiar permisos.");
          } else {
-            String who = "<none>";
+            String who = "<ninguno>";
             if (this.target != null) {
                String cached = this.plugin == null ? null : this.plugin.getKnownUsername(this.target);
                if (cached != null && !cached.isEmpty()) {
@@ -77,7 +77,7 @@ public final class TotemProtecaoTrustElement extends ChoiceElement {
       boolean use = (perms & 4) != 0;
       StringBuilder sb = new StringBuilder();
       sb.append("C:").append(place ? "S" : "N");
-      sb.append(" Q:").append(breakPerm ? "S" : "N");
+      sb.append(" R:").append(breakPerm ? "S" : "N");
       sb.append(" U:").append(use ? "S" : "N");
       return sb.toString();
    }

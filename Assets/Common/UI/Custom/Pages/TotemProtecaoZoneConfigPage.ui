@@ -8,7 +8,7 @@ $C.@DecoratedContainer {
   #Title {
     Group {
       $C.@Title {
-        @Text = "Configuração da Zona";
+        @Text = "Configuracion de la Zona";
       }
     }
   }
@@ -60,7 +60,7 @@ $C.@DecoratedContainer {
             HorizontalAlignment: Center,
             VerticalAlignment: Center,
           );
-          Text: "Coloque o item na mão e use no totem para recarrega-lo. Carga perdida se quebrado.";
+          Text: "Coloca el objeto en la mano y usa el totem para recargarlo. La carga se pierde si se rompe.";
         }
 
         Group #FooterLine2 {
@@ -75,7 +75,7 @@ $C.@DecoratedContainer {
           Label {
             Padding: (Left: 6);
             Style: (FontSize: 12, TextColor: #b4c8c9);
-            Text: "Coração do vazio = 12h";
+            Text: "Corazon del Vacio = 12h";
           }
         }
 
@@ -91,7 +91,7 @@ $C.@DecoratedContainer {
           Label {
             Padding: (Left: 6);
             Style: (FontSize: 12, TextColor: #b4c8c9);
-            Text: "Essência do Vazio = 4min";
+            Text: "Esencia del Vacio = 4min";
           }
         }
 
@@ -102,7 +102,7 @@ $C.@DecoratedContainer {
             HorizontalAlignment: Center,
             VerticalAlignment: Center,
           );
-          Text: "Feito com carinho por Ferreira_ para o Jogando Bem: jogandobem.com.br";
+          Text: "Hecho con carino por Ferreira_ para Jogando Bem: jogandobem.com.br";
         }
       }
     }

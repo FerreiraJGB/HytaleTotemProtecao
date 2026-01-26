@@ -31,7 +31,7 @@ public final class TotemProtecaoTrustCycleInteraction extends ChoiceInteraction 
                UUID actor = playerRef.getUuid();
                if (actor != null) {
                   if (!this.plugin.isOpBypass(actor) && !claim.getOwner().equals(actor)) {
-                     this.plugin.sendPlayerMessage(playerRef, "Somente o dono pode editar amigos/permissoes");
+                     this.plugin.sendPlayerMessage(playerRef, "Solo el propietario puede editar amigos/permisos");
                   } else {
                      int current = claim.getPermissionsFor(this.target);
                      byte next;

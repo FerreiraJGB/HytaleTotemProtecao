@@ -63,7 +63,7 @@ public final class TotemProtecaoPlaceSystem extends EntityEventSystem<EntityStor
                if (owned >= this.plugin.getMaxClaimsPerPlayer()) {
                   event.setCancelled(true);
                   this.plugin.sendPlayerMessage(player,
-                        "Nao foi possivel colocar o TotemProtecao: limite de protecoes atingido (" + owned + "/"
+                        "No fue posible colocar el TotemProtecao: limite de protecciones alcanzado (" + owned + "/"
                               + this.plugin.getMaxClaimsPerPlayer() + ")");
                   return;
                }
@@ -71,7 +71,7 @@ public final class TotemProtecaoPlaceSystem extends EntityEventSystem<EntityStor
                Claim existing = claims.findClaimAt(x, z);
                if (existing != null && existing.isProtectionActive(nowMs) && !existing.getOwner().equals(uuid)) {
                   event.setCancelled(true);
-                  this.plugin.sendPlayerMessage(player, "Nao foi possivel colocar o TotemProtecao: area protegida");
+                  this.plugin.sendPlayerMessage(player, "No fue posible colocar el TotemProtecao: area protegida");
                   return;
                }
             }
@@ -79,7 +79,7 @@ public final class TotemProtecaoPlaceSystem extends EntityEventSystem<EntityStor
             if (claims.intersectsAny(x, z, this.plugin.getClaimRadius())) {
                event.setCancelled(true);
                this.plugin.sendPlayerMessage(player,
-                     "Nao foi possivel colocar o TotemProtecao: a protecao iria sobrepor outra protecao");
+                     "No fue posible colocar el TotemProtecao: la proteccion se superpondria a otra proteccion");
             } else {
                String ownerName = null;
 
@@ -97,13 +97,13 @@ public final class TotemProtecaoPlaceSystem extends EntityEventSystem<EntityStor
                boolean added = claims.addClaim(newClaim);
                if (added) {
                   this.plugin.markRecentClaimPlacement(x, z);
-                  this.plugin.sendPlayerMessage(player, "Protecao criada (raio " + this.plugin.getClaimRadius() + ")");
+                  this.plugin.sendPlayerMessage(player, "Proteccion creada (radio " + this.plugin.getClaimRadius() + ")");
                   Api var10000 = this.plugin.getLogger().at(Level.INFO);
                   String var10001 = String.valueOf(uuid);
                   var10000.log("TotemProtecao claim created owner=" + var10001 + " center=" + x + "," + z + " radius="
                         + this.plugin.getClaimRadius() + " itemId=" + inHand.getItemId());
                } else {
-                  this.plugin.sendPlayerMessage(player, "Nao foi possivel colocar o TotemProtecao aqui");
+                  this.plugin.sendPlayerMessage(player, "No fue posible colocar el TotemProtecao aqui");
                }
 
             }
@@ -113,7 +113,7 @@ public final class TotemProtecaoPlaceSystem extends EntityEventSystem<EntityStor
                if (!bypass) {
                   if (!claim.getOwner().equals(uuid) && !claim.hasPermission(uuid, 1)) {
                      event.setCancelled(true);
-                     this.plugin.sendPlayerMessage(player, "Voce nao pode colocar blocos dentro desta area protegida");
+                     this.plugin.sendPlayerMessage(player, "No puedes colocar bloques dentro de esta area protegida");
                   }
 
                }

@@ -37,11 +37,11 @@ public final class TotemProtecaoPlayerCandidateElement extends ChoiceElement {
 
          who = this.username;
          if (who == null || who.isEmpty()) {
-            who = this.target == null ? "<desconhecido>" : this.target.toString();
+            who = this.target == null ? "<desconocido>" : this.target.toString();
          }
 
          commands.set(selector + " #Name.TextSpans", Message.raw(who));
-         commands.set(selector + " #Durability.Text", "Clique para adicionar (TUDO)");
+         commands.set(selector + " #Durability.Text", "Haz clic para agregar (TODO)");
       }
    }
 }

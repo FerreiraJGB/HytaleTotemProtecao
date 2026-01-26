@@ -31,18 +31,18 @@ public final class TotemProtecaoProtectionStatusElement extends ChoiceElement {
          }
          Claim claim = this.plugin == null ? null
                : this.plugin.getClaimStore().findClaimByCenter(this.centerX, this.centerZ);
-         String statusText = "SEM TEMPO";
+         String statusText = "SIN TIEMPO";
          if (claim != null) {
             long nowMs = System.currentTimeMillis();
             long remaining = claim.getProtectionRemainingMs(nowMs);
             if (claim.isProtectionPaused()) {
                statusText = "PAUSADA: " + TotemProtecaoPlugin.formatDuration(remaining);
             } else if (remaining > 0L) {
-               statusText = "ATIVA: " + TotemProtecaoPlugin.formatDuration(remaining);
+               statusText = "ACTIVA: " + TotemProtecaoPlugin.formatDuration(remaining);
             }
          }
 
-         commands.set(selector + " #Name.TextSpans", Message.raw("PROTEÇÃO"));
+         commands.set(selector + " #Name.TextSpans", Message.raw("PROTECCION"));
          commands.set(selector + " #Durability.Text", statusText);
       }
    }

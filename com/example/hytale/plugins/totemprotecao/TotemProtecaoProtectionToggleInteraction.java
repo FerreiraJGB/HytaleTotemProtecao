@@ -29,19 +29,19 @@ public final class TotemProtecaoProtectionToggleInteraction extends ChoiceIntera
                Claim claim = claims.findClaimByCenter(this.centerX, this.centerZ);
                if (claim != null) {
                   if (!this.plugin.isOpBypass(actor) && !claim.getOwner().equals(actor)) {
-                     this.plugin.sendPlayerMessage(playerRef, "Somente o dono pode ativar ou desativar a protecao");
+                     this.plugin.sendPlayerMessage(playerRef, "Solo el propietario puede activar o desactivar la proteccion");
                   } else {
                      long nowMs = System.currentTimeMillis();
                      if (claim.isProtectionPaused()) {
                         boolean resumed = claim.resumeProtection(nowMs);
                         if (!resumed) {
-                           this.plugin.sendPlayerMessage(playerRef, "Sem tempo disponivel para ativar a protecao");
+                           this.plugin.sendPlayerMessage(playerRef, "Sin tiempo disponible para activar la proteccion");
                         } else {
-                           this.plugin.sendPlayerMessage(playerRef, "Protecao ativada");
+                           this.plugin.sendPlayerMessage(playerRef, "Proteccion activada");
                         }
                      } else {
                         claim.pauseProtection(nowMs);
-                        this.plugin.sendPlayerMessage(playerRef, "Protecao pausada");
+                        this.plugin.sendPlayerMessage(playerRef, "Proteccion pausada");
                      }
 
                      claims.markDirty();

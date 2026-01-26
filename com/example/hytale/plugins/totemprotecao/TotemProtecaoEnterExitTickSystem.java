@@ -78,17 +78,17 @@ public final class TotemProtecaoEnterExitTickSystem extends EntityTickingSystem<
                               Claim prevClaim = resolveClaim(this.plugin, prev);
                               String owner = resolveOwnerName(this.plugin, prevClaim);
                               this.plugin.sendPlayerMessage(player,
-                                    "Voce saiu de uma area protegida (dono: " + owner + ")");
+                                    "Saliste de una area protegida (propietario: " + owner + ")");
                            } else {
                               String owner;
                               if (prev == null && now != null) {
                                  owner = resolveOwnerName(this.plugin, claim);
                                  this.plugin.sendPlayerMessage(player,
-                                       "Voce entrou em uma area protegida (dono: " + owner + ")");
+                                       "Entraste en una area protegida (propietario: " + owner + ")");
                               } else {
                                  owner = resolveOwnerName(this.plugin, claim);
                                  this.plugin.sendPlayerMessage(player,
-                                       "Voce entrou em uma area protegida (dono: " + owner + ")");
+                                       "Entraste en una area protegida (propietario: " + owner + ")");
                               }
                            }
                         }

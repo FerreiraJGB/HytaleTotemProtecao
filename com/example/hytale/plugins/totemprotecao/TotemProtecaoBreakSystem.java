@@ -58,22 +58,22 @@ public final class TotemProtecaoBreakSystem extends EntityEventSystem<EntityStor
                      this.plugin.setPendingProtectionItem(uuid, claim.getProtectionRemainingMs(nowMs));
                      claims.removeClaimAt(x, z);
                      this.plugin.clearBorderForClaim(x, z);
-                     this.plugin.sendPlayerMessage(player, "Protecao removida");
+                     this.plugin.sendPlayerMessage(player, "Proteccion eliminada");
                   }
 
                } else if (isCenter) {
                   if (!claim.getOwner().equals(uuid)) {
                      event.setCancelled(true);
-                     this.plugin.sendPlayerMessage(player, "Voce nao pode quebrar esta protecao");
+                     this.plugin.sendPlayerMessage(player, "No puedes romper esta proteccion");
                   } else {
                      this.plugin.setPendingProtectionItem(uuid, claim.getProtectionRemainingMs(nowMs));
                      claims.removeClaimAt(x, z);
                      this.plugin.clearBorderForClaim(x, z);
-                     this.plugin.sendPlayerMessage(player, "Protecao removida");
+                     this.plugin.sendPlayerMessage(player, "Proteccion eliminada");
                   }
                } else if (!claim.getOwner().equals(uuid) && !claim.hasPermission(uuid, 2)) {
                   event.setCancelled(true);
-                  this.plugin.sendPlayerMessage(player, "Voce nao pode quebrar blocos dentro desta area protegida");
+                  this.plugin.sendPlayerMessage(player, "No puedes romper bloques dentro de esta area protegida");
                }
             }
          }
