@@ -16,7 +16,7 @@ public final class TotemProtecaoCommand extends AbstractAsyncCommand {
    private final TotemProtecaoPlugin plugin;
 
    public TotemProtecaoCommand(TotemProtecaoPlugin plugin) {
-      super("totemprotecao", "Comandos admin do TotemProtecao");
+      super("totemprotecao", "TotemProtecao admin commands");
       this.plugin = plugin;
       this.setAllowsExtraArguments(true);
    }
@@ -25,13 +25,13 @@ public final class TotemProtecaoCommand extends AbstractAsyncCommand {
       String input = ctx.getInputString();
       String[] parts = input == null ? new String[0] : input.trim().split("\\s+");
       if (!this.isAllowed(ctx)) {
-         ctx.sendMessage(Message.raw("Sem permissao"));
+         ctx.sendMessage(Message.raw("No permission"));
          return CompletableFuture.completedFuture((Void) null);
       } else if (parts.length <= 1) {
          this.sendUsage(ctx);
-         ctx.sendMessage(Message.raw("Raio atual: " + this.plugin.getClaimRadius()));
-         ctx.sendMessage(Message.raw("Maximo de protecoes por jogador: " + this.plugin.getMaxClaimsPerPlayer()));
-         ctx.sendMessage(Message.raw("Craft permitido: " + this.plugin.isAllowCrafting()));
+         ctx.sendMessage(Message.raw("Current radius: " + this.plugin.getClaimRadius()));
+         ctx.sendMessage(Message.raw("Max protections per player: " + this.plugin.getMaxClaimsPerPlayer()));
+         ctx.sendMessage(Message.raw("Crafting allowed: " + this.plugin.isAllowCrafting()));
          return CompletableFuture.completedFuture((Void) null);
       } else {
          String sub = parts[1].toLowerCase();
@@ -41,53 +41,53 @@ public final class TotemProtecaoCommand extends AbstractAsyncCommand {
             int max;
             if (sub.equals("radius")) {
                if (parts.length == 2) {
-                  ctx.sendMessage(Message.raw("Raio atual: " + this.plugin.getClaimRadius()));
+                  ctx.sendMessage(Message.raw("Current radius: " + this.plugin.getClaimRadius()));
                   return CompletableFuture.completedFuture((Void) null);
                } else {
                   try {
                      max = Integer.parseInt(parts[2]);
                   } catch (Exception var7) {
-                     ctx.sendMessage(Message.raw("Raio invalido. Permitidos: 16, 32, 64, 128"));
+                     ctx.sendMessage(Message.raw("Invalid radius. Allowed: 16, 32, 64, 128"));
                      return CompletableFuture.completedFuture((Void) null);
                   }
 
                   boolean ok = this.plugin.setClaimRadius(max);
                   if (!ok) {
-                     ctx.sendMessage(Message.raw("Raio invalido. Permitidos: 16, 32, 64, 128"));
+                     ctx.sendMessage(Message.raw("Invalid radius. Allowed: 16, 32, 64, 128"));
                      return CompletableFuture.completedFuture((Void) null);
                   } else {
                      ctx.sendMessage(
-                           Message.raw("Raio do TotemProtecao definido para " + this.plugin.getClaimRadius()));
+                           Message.raw("TotemProtecao radius set to " + this.plugin.getClaimRadius()));
                      return CompletableFuture.completedFuture((Void) null);
                   }
                }
             } else if (sub.equals("maxclaims")) {
                if (parts.length == 2) {
                   ctx.sendMessage(
-                        Message.raw("Maximo de protecoes por jogador: " + this.plugin.getMaxClaimsPerPlayer()));
+                        Message.raw("Max protections per player: " + this.plugin.getMaxClaimsPerPlayer()));
                   return CompletableFuture.completedFuture((Void) null);
                } else {
                   try {
                      max = Integer.parseInt(parts[2]);
                   } catch (Exception var8) {
-                     ctx.sendMessage(Message.raw("Maximo invalido. Permitido: 1-5"));
+                     ctx.sendMessage(Message.raw("Invalid max. Allowed: 1-5"));
                      return CompletableFuture.completedFuture((Void) null);
                   }
 
                   this.plugin.setMaxClaimsPerPlayer(max);
-                  ctx.sendMessage(Message
-                        .raw("Maximo de protecoes por jogador definido para " + this.plugin.getMaxClaimsPerPlayer()));
+                  ctx.sendMessage(Message.raw(
+                        "Max protections per player set to " + this.plugin.getMaxClaimsPerPlayer()));
                   return CompletableFuture.completedFuture((Void) null);
                }
             } else if (sub.equals("crafting")) {
                if (parts.length == 2) {
-                  ctx.sendMessage(Message.raw("Craft permitido: " + this.plugin.isAllowCrafting()));
+                  ctx.sendMessage(Message.raw("Crafting allowed: " + this.plugin.isAllowCrafting()));
                   return CompletableFuture.completedFuture((Void) null);
                } else {
                   String arg = parts[2].toLowerCase();
                   if (!arg.equals("on") && !arg.equals("true") && !arg.equals("yes")) {
                      if (!arg.equals("off") && !arg.equals("false") && !arg.equals("no")) {
-                        ctx.sendMessage(Message.raw("Uso: /totemprotecao crafting <on|off>"));
+                        ctx.sendMessage(Message.raw("Usage: /totemprotecao crafting <on|off>"));
                         return CompletableFuture.completedFuture((Void) null);
                      }
 
@@ -96,7 +96,7 @@ public final class TotemProtecaoCommand extends AbstractAsyncCommand {
                      this.plugin.setAllowCrafting(true);
                   }
 
-                  ctx.sendMessage(Message.raw("Craft permitido: " + this.plugin.isAllowCrafting()));
+                  ctx.sendMessage(Message.raw("Crafting allowed: " + this.plugin.isAllowCrafting()));
                   return CompletableFuture.completedFuture((Void) null);
                }
             } else {
@@ -119,7 +119,7 @@ public final class TotemProtecaoCommand extends AbstractAsyncCommand {
             actionIndex = 3;
             Claim at = this.resolveClaimAtSender(ctx);
             if (at == null) {
-               ctx.sendMessage(Message.raw("Nenhuma protecao encontrada na sua posicao"));
+               ctx.sendMessage(Message.raw("No protection found at your position"));
                return CompletableFuture.completedFuture((Void) null);
             }
 
@@ -138,13 +138,13 @@ public final class TotemProtecaoCommand extends AbstractAsyncCommand {
                centerX = Integer.parseInt(parts[2]);
                centerZ = Integer.parseInt(parts[3]);
             } catch (Exception var10) {
-               ctx.sendMessage(Message.raw("Coordenadas do centro invalidas"));
+               ctx.sendMessage(Message.raw("Invalid center coordinates"));
                return CompletableFuture.completedFuture((Void) null);
             }
 
             claim = store.findClaimByCenter(centerX, centerZ);
             if (claim == null) {
-               ctx.sendMessage(Message.raw("Nenhuma protecao encontrada no centro " + centerX + "," + centerZ));
+               ctx.sendMessage(Message.raw("No protection found at center " + centerX + "," + centerZ));
                return CompletableFuture.completedFuture((Void) null);
             }
          }
@@ -155,20 +155,20 @@ public final class TotemProtecaoCommand extends AbstractAsyncCommand {
             UUID target;
             if (action.equals("remove")) {
                if (parts.length <= actionIndex + 1) {
-                  ctx.sendMessage(
-                        Message.raw("Uso: /totemprotecao trust <centerX> <centerZ> remove <playerName|playerUuid>"));
-                  ctx.sendMessage(Message.raw("Uso: /totemprotecao trust here remove <playerName|playerUuid>"));
+                     ctx.sendMessage(
+                        Message.raw("Usage: /totemprotecao trust <centerX> <centerZ> remove <playerName|playerUuid>"));
+                  ctx.sendMessage(Message.raw("Usage: /totemprotecao trust here remove <playerName|playerUuid>"));
                   return CompletableFuture.completedFuture((Void) null);
                } else {
                   target = this.resolvePlayerUuid(parts[actionIndex + 1]);
                   if (target == null) {
-                     ctx.sendMessage(Message.raw("Jogador desconhecido: " + parts[actionIndex + 1]
-                           + " (precisa ter entrado ao menos uma vez)"));
+                     ctx.sendMessage(Message.raw("Unknown player: " + parts[actionIndex + 1]
+                           + " (must have joined at least once)"));
                      return CompletableFuture.completedFuture((Void) null);
                   } else {
                      claim.removeTrusted(target);
                      store.markDirty();
-                     ctx.sendMessage(Message.raw("Permissao removida de " + String.valueOf(target)));
+                     ctx.sendMessage(Message.raw("Permission removed from " + String.valueOf(target)));
                      return CompletableFuture.completedFuture((Void) null);
                   }
                }
@@ -176,16 +176,16 @@ public final class TotemProtecaoCommand extends AbstractAsyncCommand {
                this.sendTrustUsage(ctx);
                return CompletableFuture.completedFuture((Void) null);
             } else if (parts.length <= actionIndex + 1) {
-               ctx.sendMessage(Message.raw("Uso: /totemprotecao trust <centerX> <centerZ> " + action
+               ctx.sendMessage(Message.raw("Usage: /totemprotecao trust <centerX> <centerZ> " + action
                      + " <playerName|playerUuid> [place|break|use|all|none]"));
-               ctx.sendMessage(Message.raw("Uso: /totemprotecao trust here " + action
+               ctx.sendMessage(Message.raw("Usage: /totemprotecao trust here " + action
                      + " <playerName|playerUuid> [place|break|use|all|none]"));
                return CompletableFuture.completedFuture((Void) null);
             } else {
                target = this.resolvePlayerUuid(parts[actionIndex + 1]);
                if (target == null) {
                   ctx.sendMessage(Message.raw(
-                        "Jogador desconhecido: " + parts[actionIndex + 1] + " (precisa ter entrado ao menos uma vez)"));
+                        "Unknown player: " + parts[actionIndex + 1] + " (must have joined at least once)"));
                   return CompletableFuture.completedFuture((Void) null);
                } else {
                   int perms;
@@ -198,18 +198,18 @@ public final class TotemProtecaoCommand extends AbstractAsyncCommand {
                   claim.setTrusted(target, perms);
                   store.markDirty();
                   var10001 = String.valueOf(target);
-                  ctx.sendMessage(Message
-                        .raw("Permissoes atualizadas para " + var10001 + " perms=" + claim.getPermissionsFor(target)));
+                  ctx.sendMessage(Message.raw(
+                        "Permissions updated for " + var10001 + " perms=" + claim.getPermissionsFor(target)));
                   return CompletableFuture.completedFuture((Void) null);
                }
             }
          } else {
             Map<UUID, Integer> trusted = claim.getTrusted();
             if (trusted.isEmpty()) {
-               ctx.sendMessage(Message.raw("Nenhum jogador confiavel nesta protecao"));
+               ctx.sendMessage(Message.raw("No trusted players in this protection"));
                return CompletableFuture.completedFuture((Void) null);
             } else {
-               ctx.sendMessage(Message.raw("Jogadores confiaveis:"));
+               ctx.sendMessage(Message.raw("Trusted players:"));
                Iterator var8 = trusted.entrySet().iterator();
 
                while (var8.hasNext()) {
@@ -225,21 +225,21 @@ public final class TotemProtecaoCommand extends AbstractAsyncCommand {
    }
 
    private void sendUsage(CommandContext ctx) {
-      ctx.sendMessage(Message.raw("Uso: /totemprotecao radius <16|32|64|128>"));
-      ctx.sendMessage(Message.raw("Uso: /totemprotecao maxclaims <1-5>"));
-      ctx.sendMessage(Message.raw("Uso: /totemprotecao crafting <on|off>"));
-      ctx.sendMessage(Message.raw("Uso: /totemprotecao trust <centerX> <centerZ> <list|add|remove|set> ..."));
-      ctx.sendMessage(Message.raw("Uso: /totemprotecao trust here <list|add|remove|set> ..."));
+      ctx.sendMessage(Message.raw("Usage: /totemprotecao radius <16|32|64|128>"));
+      ctx.sendMessage(Message.raw("Usage: /totemprotecao maxclaims <1-5>"));
+      ctx.sendMessage(Message.raw("Usage: /totemprotecao crafting <on|off>"));
+      ctx.sendMessage(Message.raw("Usage: /totemprotecao trust <centerX> <centerZ> <list|add|remove|set> ..."));
+      ctx.sendMessage(Message.raw("Usage: /totemprotecao trust here <list|add|remove|set> ..."));
    }
 
    private void sendTrustUsage(CommandContext ctx) {
-      ctx.sendMessage(Message.raw("Uso: /totemprotecao trust <centerX> <centerZ> list"));
+      ctx.sendMessage(Message.raw("Usage: /totemprotecao trust <centerX> <centerZ> list"));
       ctx.sendMessage(Message.raw(
-            "Uso: /totemprotecao trust <centerX> <centerZ> add <playerName|playerUuid> [place|break|use|all|none]"));
+            "Usage: /totemprotecao trust <centerX> <centerZ> add <playerName|playerUuid> [place|break|use|all|none]"));
       ctx.sendMessage(Message.raw(
-            "Uso: /totemprotecao trust <centerX> <centerZ> set <playerName|playerUuid> [place|break|use|all|none]"));
-      ctx.sendMessage(Message.raw("Uso: /totemprotecao trust <centerX> <centerZ> remove <playerName|playerUuid>"));
-      ctx.sendMessage(Message.raw("Uso: /totemprotecao trust here <list|add|remove|set> ..."));
+            "Usage: /totemprotecao trust <centerX> <centerZ> set <playerName|playerUuid> [place|break|use|all|none]"));
+      ctx.sendMessage(Message.raw("Usage: /totemprotecao trust <centerX> <centerZ> remove <playerName|playerUuid>"));
+      ctx.sendMessage(Message.raw("Usage: /totemprotecao trust here <list|add|remove|set> ..."));
    }
 
    private UUID resolvePlayerUuid(String raw) {

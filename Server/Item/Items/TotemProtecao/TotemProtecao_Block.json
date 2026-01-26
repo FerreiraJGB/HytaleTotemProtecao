@@ -1,7 +1,7 @@
 {
   "TranslationProperties": {
-    "Name": "Totem de Proteção",
-    "Description": "Gera uma area protegida temporaria. Recarregue segurando o item na mao e clicando com o botao de interacao. Aceita Coracao do Vazio (12h) e Essencia do Vazio (4m)"
+    "Name": "Protection Totem",
+    "Description": "Creates a temporary protected area. Recharge by holding the item and interacting with the totem. Accepts Voidheart (12h) and Void Essence (4 min)"
   },
   "MaxStack": 1,
   "Icon": "Icons/ItemsGenerated/Furniture_Kweebec_Statue.png",

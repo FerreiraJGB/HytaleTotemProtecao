@@ -31,7 +31,7 @@ public final class TotemProtecaoBorderToggleInteraction extends ChoiceInteractio
             Claim claim = this.plugin.getClaimStore().findClaimByCenter(this.centerX, this.centerZ);
             if (claim != null) {
                if (!claim.isProtectionActive(System.currentTimeMillis())) {
-                  this.plugin.sendPlayerMessageImmediate(playerRef, "Borda: protecao expirada");
+                  this.plugin.sendPlayerMessageImmediate(playerRef, "Border: protection expired");
                   return;
                }
 
@@ -39,10 +39,10 @@ public final class TotemProtecaoBorderToggleInteraction extends ChoiceInteractio
                boolean currentlyOn = this.plugin.isBorderEnabled(actor, key);
                if (currentlyOn) {
                   this.plugin.disableBorder(actor);
-                  this.plugin.sendPlayerMessageImmediate(playerRef, "Borda: DESLIGADA");
+                  this.plugin.sendPlayerMessageImmediate(playerRef, "Border: disabled");
                } else {
                   this.plugin.enableBorder(actor, this.centerX, this.centerZ);
-                  this.plugin.sendPlayerMessageImmediate(playerRef, "Borda: LIGADA");
+                  this.plugin.sendPlayerMessageImmediate(playerRef, "Border: enabled");
 
                   try {
                      Transform t = playerRef.getTransform();

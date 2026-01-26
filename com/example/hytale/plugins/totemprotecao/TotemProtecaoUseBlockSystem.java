@@ -92,7 +92,7 @@ public final class TotemProtecaoUseBlockSystem extends EntityEventSystem<EntityS
                   ((Api) this.plugin.getLogger().at(Level.WARNING).withCause(var20))
                         .log("TotemProtecao UI: failed to get Player component");
                   this.plugin.sendPlayerMessage(player,
-                        "Erro da UI do TotemProtecao: nao foi possivel ler o componente Player");
+                        "TotemProtecao UI error: could not read Player component");
                   return;
                }
 
@@ -105,14 +105,15 @@ public final class TotemProtecaoUseBlockSystem extends EntityEventSystem<EntityS
                   ((Api) this.plugin.getLogger().at(Level.WARNING).withCause(var19))
                         .log("TotemProtecao UI: openCustomPage failed");
                   this.plugin.sendPlayerMessage(player,
-                        "Erro da UI do TotemProtecao: falha ao abrir a pagina (veja o log do servidor)");
+                        "TotemProtecao UI error: failed to open page (see server log)");
                }
 
             } else if (claim.isProtectionActive(nowMs)) {
                if (!bypass) {
                   if (!claim.getOwner().equals(uuid) && !claim.hasPermission(uuid, 4)) {
                      event.setCancelled(true);
-                     this.plugin.sendPlayerMessage(player, "Voce nao pode usar blocos dentro desta area protegida");
+                     this.plugin.sendPlayerMessage(player,
+                           "You cannot use blocks inside this protected area");
                   }
 
                }
@@ -184,7 +185,7 @@ public final class TotemProtecaoUseBlockSystem extends EntityEventSystem<EntityS
                String addedText = TotemProtecaoPlugin.formatDuration(addedMs);
                String remainingText = TotemProtecaoPlugin.formatDuration(remainingMs);
                this.plugin.sendPlayerMessage(player,
-                     "Protecao recarregada: +" + addedText + " (restante " + remainingText + ")");
+                     "Protection recharged: +" + addedText + " (remaining " + remainingText + ")");
                return true;
             } else {
                return false;

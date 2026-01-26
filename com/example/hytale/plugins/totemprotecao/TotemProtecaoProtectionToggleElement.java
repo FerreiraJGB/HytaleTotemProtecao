@@ -32,14 +32,14 @@ public final class TotemProtecaoProtectionToggleElement extends ChoiceElement {
          }
          Claim claim = this.plugin == null ? null
                : this.plugin.getClaimStore().findClaimByCenter(this.centerX, this.centerZ);
-         String status = "DESATIVADA";
+         String status = "DISABLED";
          if (claim != null && !claim.isProtectionPaused() && claim.isProtectionActive(System.currentTimeMillis())) {
-            status = "ATIVADA";
+            status = "ENABLED";
          } else if (claim != null && claim.isProtectionPaused()) {
-            status = "PAUSADA";
+            status = "PAUSED";
          }
 
-         commands.set(selector + " #Name.TextSpans", Message.raw("ATIVAR/DESATIVAR PROTEÇÃO"));
+         commands.set(selector + " #Name.TextSpans", Message.raw("ENABLE/DISABLE PROTECTION"));
          commands.set(selector + " #Durability.Text", status);
       }
    }

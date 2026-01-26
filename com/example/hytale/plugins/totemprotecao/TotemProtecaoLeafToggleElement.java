@@ -25,8 +25,8 @@ public final class TotemProtecaoLeafToggleElement extends ChoiceElement {
                commands.set(selector + " #Icon.ItemId", iconId);
             }
          }
-         commands.set(selector + " #Name.TextSpans", Message.raw("Efeito de folhas"));
-         commands.set(selector + " #Durability.Text", "DESATIVADO");
+         commands.set(selector + " #Name.TextSpans", Message.raw("LEAF EFFECT"));
+         commands.set(selector + " #Durability.Text", "DISABLED");
       }
    }
 }

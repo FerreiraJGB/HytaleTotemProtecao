@@ -56,7 +56,7 @@ public final class TotemProtecaoTrustListPage extends ChoiceBasePage {
                }
             }
 
-            els.add(new TotemProtecaoHeaderElement("PESSOAS NA ÁREA", "Clique para adicionar (TODAS)", iconId));
+            els.add(new TotemProtecaoHeaderElement("PLAYERS IN AREA", "Click to add (ALL)", iconId));
             Map<UUID, String> inClaim = plugin.getPlayersInClaim(centerX, centerZ);
             if (!inClaim.isEmpty()) {
                List<Entry<UUID, String>> entries = new ArrayList(inClaim.entrySet());
