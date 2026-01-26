@@ -1,0 +1,3 @@
+# === totemprotecao ===
+server.items.TotemProtecao_Block.name = Gerador de Protecao
+server.items.TotemProtecao_Block.description = Gera uma area protegida temporaria. Recarregue segurando o item na mao e clicando com o botao de interacao. Aceita Coracao do Vazio (12h) e Essencia do Vazio (4min)

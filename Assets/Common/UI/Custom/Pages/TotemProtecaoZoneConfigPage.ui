@@ -1,0 +1,112 @@
+$C = "../Common.ui";
+
+$C.@PageOverlay {}
+
+$C.@DecoratedContainer {
+  Anchor: (Width: 600, Height: 400);
+
+  #Title {
+    Group {
+      $C.@Title {
+        @Text = "Configuração da Zona";
+      }
+    }
+  }
+
+  #Content {
+    LayoutMode: Top;
+    Padding: (Right: 15, Bottom: 5);
+
+    Group {
+      LayoutMode: Left;
+
+      Label {
+        FlexWeight: 1;
+        Text: %server.customUI.itemRepairPage.item;
+        Style: (RenderBold: true);
+      }
+
+      Label {
+        Text: %server.customUI.itemRepairPage.durability;
+        Style: (RenderBold: true);
+      }
+    }
+
+    Group #ElementList {
+      FlexWeight: 1;
+      LayoutMode: TopScrolling;
+      ScrollbarStyle: $C.@DefaultScrollbarStyle;
+    }
+
+    Group #Footer {
+      Anchor: (Height: 100);
+      LayoutMode: Top;
+      Padding: (Horizontal: -2);
+
+      Group #FooterDivider {
+        Anchor: (Height: 2);
+        Background: #19252F;
+      }
+
+      Group #FooterContent {
+        FlexWeight: 1;
+        LayoutMode: Top;
+        Padding: (Top: 4, Bottom: 2);
+
+        Label #FooterLine1 {
+          Style: (
+            FontSize: 12,
+            TextColor: #b4c8c9,
+            HorizontalAlignment: Center,
+            VerticalAlignment: Center,
+          );
+          Text: "Coloque o item na mão e use no totem para recarrega-lo. Carga perdida se quebrado.";
+        }
+
+        Group #FooterLine2 {
+          LayoutMode: Center;
+          Padding: (Top: 2);
+
+          ItemIcon #VoidheartIcon {
+            Anchor: (Width: 16, Height: 16);
+            ItemId: "Ingredient_Voidheart";
+          }
+
+          Label {
+            Padding: (Left: 6);
+            Style: (FontSize: 12, TextColor: #b4c8c9);
+            Text: "Coração do vazio = 12h";
+          }
+        }
+
+        Group #FooterLine3 {
+          LayoutMode: Center;
+          Padding: (Top: 2);
+
+          ItemIcon #EssenceIcon {
+            Anchor: (Width: 16, Height: 16);
+            ItemId: "Ingredient_Void_Essence";
+          }
+
+          Label {
+            Padding: (Left: 6);
+            Style: (FontSize: 12, TextColor: #b4c8c9);
+            Text: "Essência do Vazio = 4min";
+          }
+        }
+
+        Label #FooterLine4 {
+          Style: (
+            FontSize: 11,
+            TextColor: #7caacc,
+            HorizontalAlignment: Center,
+            VerticalAlignment: Center,
+          );
+          Text: "Feito com carinho por Ferreira_ para o Jogando Bem: jogandobem.com.br";
+        }
+      }
+    }
+  }
+}
+
+$C.@BackButton {}

@@ -1,0 +1,16 @@
+{
+  "Group": "Local",
+  "Name": "GeradorDeCampo",
+  "Version": "1.0.8",
+  "Dependencies": {
+    "Hytale:EntityModule": "*"
+  },
+  "Authors": [
+    {
+      "Name": "Ferreira_"
+    }
+  ],
+  "Website": "",
+  "Main": "com.example.hytale.plugins.totemprotecao.TotemProtecaoPlugin",
+  "ServerVersion": "*"
+}
