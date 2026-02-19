@@ -8,6 +8,7 @@ import com.hypixel.hytale.component.query.Query;
 import com.hypixel.hytale.component.system.EntityEventSystem;
 import com.hypixel.hytale.logger.HytaleLogger.Api;
 import com.hypixel.hytale.protocol.InteractionType;
+import com.hypixel.hytale.server.core.asset.type.blocktype.config.BlockType;
 import com.hypixel.hytale.server.core.entity.InteractionContext;
 import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.entity.entities.player.pages.PageManager;
@@ -21,11 +22,7 @@ import java.util.UUID;
 import java.util.logging.Level;
 
 public final class TotemProtecaoUseBlockSystem extends EntityEventSystem<EntityStore, Pre> {
-   private static final String VOIDHEART_ITEM_ID = "Ingredient_Voidheart";
-   private static final String VOID_ESSENCE_ITEM_ID = "Ingredient_Void_Essence";
-   private static final long VOIDHEART_MS = 43200000L;
-   private static final long VOID_ESSENCE_MS = 240000L;
-   private static final int VOID_ESSENCE_BATCH = 20;
+   private static final int DEFAULT_CONSUME_QUANTITY = 1;
    private final TotemProtecaoPlugin plugin;
 
    public TotemProtecaoUseBlockSystem(TotemProtecaoPlugin plugin) {
@@ -54,16 +51,29 @@ public final class TotemProtecaoUseBlockSystem extends EntityEventSystem<EntityS
          ClaimStore claims = this.plugin.getClaimStore();
          Claim claim = claims.findClaimAt(x, z);
          if (claim != null) {
-            if (claim.getCenterY() == Integer.MIN_VALUE) {
-               claims.updateClaimCenterYIfUnknown(claim.getCenterX(), claim.getCenterZ(), y);
-               claim = claims.findClaimByCenter(claim.getCenterX(), claim.getCenterZ());
-               if (claim == null) {
-                  return;
+            boolean canManageCenter = bypass || claim.getOwner().equals(uuid);
+            boolean isCenterColumn = claim.getCenterX() == x && claim.getCenterZ() == z;
+            boolean isCenter = false;
+            if (isCenterColumn) {
+               if (claim.getCenterY() == y) {
+                  isCenter = true;
+               } else if (canManageCenter && isTotemProtecaoBlock(event.getBlockType(), this.plugin.getTotemProtecaoItemId())) {
+                  if (claim.getCenterY() == Integer.MIN_VALUE) {
+                     claims.updateClaimCenterYIfUnknown(claim.getCenterX(), claim.getCenterZ(), y);
+                  } else {
+                     claims.updateClaimCenterY(claim.getCenterX(), claim.getCenterZ(), y);
+                  }
+
+                  claim = claims.findClaimByCenter(claim.getCenterX(), claim.getCenterZ());
+                  if (claim == null) {
+                     return;
+                  }
+
+                  isCenter = claim.getCenterY() == y;
                }
             }
 
-            boolean isCenter = claim.getCenterX() == x && claim.getCenterZ() == z && claim.getCenterY() == y;
-            if (isCenter && (bypass || claim.getOwner().equals(uuid))) {
+            if (isCenter && canManageCenter) {
                if (!canInteract) {
                   return;
                }
@@ -149,20 +159,17 @@ public final class TotemProtecaoUseBlockSystem extends EntityEventSystem<EntityS
             }
 
             if (itemId != null && qty > 0) {
-               int consume;
-               long addedMs;
-               if (this.isItemMatch(itemId, VOIDHEART_ITEM_ID)) {
-                  consume = 1;
-                  addedMs = VOIDHEART_MS;
-               } else {
-                  if (!this.isItemMatch(itemId, VOID_ESSENCE_ITEM_ID)) {
-                     return false;
-                  }
-
-                  consume = Math.min(VOID_ESSENCE_BATCH, qty);
-                  addedMs = VOID_ESSENCE_MS * (long) consume;
+               TotemProtecaoPlugin.RechargeItemConfig rechargeItem = this.plugin.findRechargeItemConfig(itemId);
+               if (rechargeItem == null) {
+                  return false;
                }
 
+               int consume = DEFAULT_CONSUME_QUANTITY;
+               if (qty < consume) {
+                  return false;
+               }
+
+               long addedMs = rechargeItem.getDurationMs() * (long) consume;
                long remainingMs = claim.addProtectionMs(nowMs, addedMs);
                claims.markDirty();
                int newQty = qty - consume;
@@ -199,18 +206,27 @@ public final class TotemProtecaoUseBlockSystem extends EntityEventSystem<EntityS
       return interactionType == InteractionType.Secondary || interactionType == InteractionType.Use;
    }
 
-   private boolean isItemMatch(String itemId, String expectedId) {
-      if (itemId == null) {
-         return false;
-      } else if (expectedId == null) {
+   private static boolean isTotemProtecaoBlock(BlockType blockType, String totemProtecaoItemId) {
+      if (blockType == null || totemProtecaoItemId == null || totemProtecaoItemId.isEmpty()) {
          return false;
       } else {
-         String itemLower = itemId.toLowerCase(Locale.ROOT);
-         String expectedLower = expectedId.toLowerCase(Locale.ROOT);
-         if (itemLower.equals(expectedLower)) {
-            return true;
+         String blockId = null;
+
+         try {
+            blockId = blockType.getId();
+         } catch (Exception var4) {
+         }
+
+         if (blockId == null || blockId.isEmpty()) {
+            return false;
          } else {
-            return itemLower.endsWith(":" + expectedLower) ? true : itemLower.contains(expectedLower);
+            String blockLower = blockId.toLowerCase(Locale.ROOT);
+            String protecaoLower = totemProtecaoItemId.toLowerCase(Locale.ROOT);
+            if (blockLower.equals(protecaoLower)) {
+               return true;
+            } else {
+               return blockLower.endsWith(":" + protecaoLower) ? true : blockLower.contains(protecaoLower);
+            }
          }
       }
    }

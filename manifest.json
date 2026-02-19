@@ -1,7 +1,7 @@
 {
-  "Group": "Local",
-  "Name": "GeradorDeCampo",
-  "Version": "1.0.8",
+  "Group": "JogandoBem",
+  "Name": "TotemProtecao",
+  "Version": "1.1.0",
   "Dependencies": {
     "Hytale:EntityModule": "*"
   },
@@ -12,5 +12,5 @@
   ],
   "Website": "",
   "Main": "com.example.hytale.plugins.totemprotecao.TotemProtecaoPlugin",
-  "ServerVersion": "*"
+  "ServerVersion": "2026.02.18-f3b8fff95"
 }

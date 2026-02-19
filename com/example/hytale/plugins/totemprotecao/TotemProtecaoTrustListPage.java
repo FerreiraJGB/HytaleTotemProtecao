@@ -1,8 +1,14 @@
 package com.example.hytale.plugins.totemprotecao;
 
+import com.hypixel.hytale.component.Ref;
+import com.hypixel.hytale.component.Store;
+import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.entity.entities.player.pages.choices.ChoiceBasePage;
 import com.hypixel.hytale.server.core.entity.entities.player.pages.choices.ChoiceElement;
+import com.hypixel.hytale.server.core.ui.builder.UICommandBuilder;
+import com.hypixel.hytale.server.core.ui.builder.UIEventBuilder;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
+import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -23,6 +29,11 @@ public final class TotemProtecaoTrustListPage extends ChoiceBasePage {
       this.plugin = plugin;
       this.centerX = centerX;
       this.centerZ = centerZ;
+   }
+
+   public void build(Ref<EntityStore> ref, UICommandBuilder commands, UIEventBuilder events, Store<EntityStore> store) {
+      super.build(ref, commands, events, store);
+      this.applyRechargeFooter(commands);
    }
 
    private static ChoiceElement[] buildElements(TotemProtecaoPlugin plugin, int centerX, int centerZ) {
@@ -78,6 +89,53 @@ public final class TotemProtecaoTrustListPage extends ChoiceBasePage {
             return (ChoiceElement[]) els.toArray((x$0) -> {
                return new ChoiceElement[x$0];
             });
+         }
+      }
+   }
+
+   private void applyRechargeFooter(UICommandBuilder commands) {
+      if (commands != null) {
+         List<TotemProtecaoPlugin.RechargeItemConfig> items = this.plugin == null ? Collections.emptyList()
+               : this.plugin.getRechargeItemConfigs();
+         TotemProtecaoPlugin.RechargeItemConfig first = items.size() > 0 ? (TotemProtecaoPlugin.RechargeItemConfig) items.get(0) : null;
+         TotemProtecaoPlugin.RechargeItemConfig second = items.size() > 1 ? (TotemProtecaoPlugin.RechargeItemConfig) items.get(1) : null;
+         this.applyRechargeFooterLine(commands, "#FooterItem1Icon", "#FooterItem1Text", first);
+         this.applyRechargeFooterLine(commands, "#FooterItem2Icon", "#FooterItem2Text", second);
+      }
+   }
+
+   private void applyRechargeFooterLine(UICommandBuilder commands, String iconSelector, String textSelector,
+         TotemProtecaoPlugin.RechargeItemConfig item) {
+      if (commands != null && iconSelector != null && textSelector != null) {
+         if (item == null || item.getItemId() == null || item.getItemId().isEmpty()) {
+            commands.setNull(iconSelector + ".ItemId");
+            commands.set(textSelector + ".TextSpans", Message.raw(""));
+         } else {
+            commands.set(iconSelector + ".ItemId", item.getItemId());
+            String translationItemId = resolveTranslationItemId(item.getItemId());
+            String durationText = TotemProtecaoPlugin.formatDuration(item.getDurationMs());
+            if (translationItemId == null || translationItemId.isEmpty()) {
+               commands.set(textSelector + ".TextSpans", Message.raw(item.getItemId() + " = " + durationText));
+            } else {
+               Message name = Message.translation("server.items." + translationItemId + ".name");
+               commands.set(textSelector + ".TextSpans", Message.join(name, Message.raw(" = " + durationText)));
+            }
+         }
+      }
+   }
+
+   private static String resolveTranslationItemId(String rawItemId) {
+      if (rawItemId == null) {
+         return null;
+      } else {
+         String normalized = rawItemId.trim();
+         if (normalized.isEmpty()) {
+            return null;
+         } else {
+            int namespaceSep = normalized.lastIndexOf(58);
+            return namespaceSep > -1 && namespaceSep + 1 < normalized.length()
+                  ? normalized.substring(namespaceSep + 1)
+                  : normalized;
          }
       }
    }

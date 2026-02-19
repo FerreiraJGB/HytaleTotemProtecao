@@ -8,7 +8,7 @@ $C.@DecoratedContainer {
   #Title {
     Group {
       $C.@Title {
-        @Text = "Configuração da Zona";
+        @Text = "Configuracao da Zona";
       }
     }
   }
@@ -60,22 +60,22 @@ $C.@DecoratedContainer {
             HorizontalAlignment: Center,
             VerticalAlignment: Center,
           );
-          Text: "Coloque o item na mão e use no totem para recarrega-lo. Carga perdida se quebrado.";
+          Text: "Coloque o item na mao e use no totem para recarrega-lo. Carga perdida se quebrado.";
         }
 
         Group #FooterLine2 {
           LayoutMode: Center;
           Padding: (Top: 2);
 
-          ItemIcon #VoidheartIcon {
+          ItemIcon #FooterItem1Icon {
             Anchor: (Width: 16, Height: 16);
             ItemId: "Ingredient_Voidheart";
           }
 
-          Label {
+          Label #FooterItem1Text {
             Padding: (Left: 6);
             Style: (FontSize: 12, TextColor: #b4c8c9);
-            Text: "Coração do vazio = 12h";
+            Text: "Coracao do vazio = 12h";
           }
         }
 
@@ -83,15 +83,15 @@ $C.@DecoratedContainer {
           LayoutMode: Center;
           Padding: (Top: 2);
 
-          ItemIcon #EssenceIcon {
+          ItemIcon #FooterItem2Icon {
             Anchor: (Width: 16, Height: 16);
             ItemId: "Ingredient_Void_Essence";
           }
 
-          Label {
+          Label #FooterItem2Text {
             Padding: (Left: 6);
             Style: (FontSize: 12, TextColor: #b4c8c9);
-            Text: "Essência do Vazio = 4min";
+            Text: "Essencia do Vazio = 4min";
           }
         }
 
