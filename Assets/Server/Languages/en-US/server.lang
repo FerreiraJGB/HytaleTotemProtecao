@@ -1,3 +1,3 @@
 # === totemprotecao ===
 server.items.TotemProtecao_Block.name = Protection Totem
-server.items.TotemProtecao_Block.description = Creates a temporary protected area. Recharge by holding the item and interacting with the totem. Accepts Voidheart (12h) and Void Essence (4 min)
+server.items.TotemProtecao_Block.description = Creates a temporary protected area. Can be recharged with items defined by the server.

@@ -1,7 +1,7 @@
 {
   "TranslationProperties": {
     "Name": "Protection Totem",
-    "Description": "Creates a temporary protected area. Recharge by holding the item and interacting with the totem. Accepts Voidheart (12h) and Void Essence (4 min)"
+    "Description": "Creates a temporary protected area. Can be recharged with items defined by the server."
   },
   "MaxStack": 1,
   "Icon": "Icons/ItemsGenerated/Furniture_Kweebec_Statue.png",

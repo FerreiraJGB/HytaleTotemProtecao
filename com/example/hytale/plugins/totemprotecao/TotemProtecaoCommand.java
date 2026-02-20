@@ -16,7 +16,7 @@ public final class TotemProtecaoCommand extends AbstractAsyncCommand {
    private final TotemProtecaoPlugin plugin;
 
    public TotemProtecaoCommand(TotemProtecaoPlugin plugin) {
-      super("totemprotecao", "TotemProtecao admin commands");
+      super("totem", "TotemProtecao admin commands");
       this.plugin = plugin;
       this.setAllowsExtraArguments(true);
    }
@@ -75,8 +75,8 @@ public final class TotemProtecaoCommand extends AbstractAsyncCommand {
                   }
 
                   this.plugin.setMaxClaimsPerPlayer(max);
-                  ctx.sendMessage(Message.raw(
-                        "Max protections per player set to " + this.plugin.getMaxClaimsPerPlayer()));
+                  ctx.sendMessage(Message
+                        .raw("Max protections per player definido para " + this.plugin.getMaxClaimsPerPlayer()));
                   return CompletableFuture.completedFuture((Void) null);
                }
             } else if (sub.equals("crafting")) {
@@ -87,7 +87,7 @@ public final class TotemProtecaoCommand extends AbstractAsyncCommand {
                   String arg = parts[2].toLowerCase();
                   if (!arg.equals("on") && !arg.equals("true") && !arg.equals("yes")) {
                      if (!arg.equals("off") && !arg.equals("false") && !arg.equals("no")) {
-                        ctx.sendMessage(Message.raw("Usage: /totemprotecao crafting <on|off>"));
+                        ctx.sendMessage(Message.raw("Usage: /totem crafting <on|off>"));
                         return CompletableFuture.completedFuture((Void) null);
                      }
 
@@ -155,15 +155,15 @@ public final class TotemProtecaoCommand extends AbstractAsyncCommand {
             UUID target;
             if (action.equals("remove")) {
                if (parts.length <= actionIndex + 1) {
-                     ctx.sendMessage(
-                        Message.raw("Usage: /totemprotecao trust <centerX> <centerZ> remove <playerName|playerUuid>"));
-                  ctx.sendMessage(Message.raw("Usage: /totemprotecao trust here remove <playerName|playerUuid>"));
+                  ctx.sendMessage(
+                        Message.raw("Usage: /totem trust <centerX> <centerZ> remove <playerName|playerUuid>"));
+                  ctx.sendMessage(Message.raw("Usage: /totem trust here remove <playerName|playerUuid>"));
                   return CompletableFuture.completedFuture((Void) null);
                } else {
                   target = this.resolvePlayerUuid(parts[actionIndex + 1]);
                   if (target == null) {
                      ctx.sendMessage(Message.raw("Unknown player: " + parts[actionIndex + 1]
-                           + " (must have joined at least once)"));
+                           + " (precisa ter entrado ao menos uma vez)"));
                      return CompletableFuture.completedFuture((Void) null);
                   } else {
                      claim.removeTrusted(target);
@@ -176,16 +176,16 @@ public final class TotemProtecaoCommand extends AbstractAsyncCommand {
                this.sendTrustUsage(ctx);
                return CompletableFuture.completedFuture((Void) null);
             } else if (parts.length <= actionIndex + 1) {
-               ctx.sendMessage(Message.raw("Usage: /totemprotecao trust <centerX> <centerZ> " + action
+               ctx.sendMessage(Message.raw("Usage: /totem trust <centerX> <centerZ> " + action
                      + " <playerName|playerUuid> [place|break|use|all|none]"));
-               ctx.sendMessage(Message.raw("Usage: /totemprotecao trust here " + action
+               ctx.sendMessage(Message.raw("Usage: /totem trust here " + action
                      + " <playerName|playerUuid> [place|break|use|all|none]"));
                return CompletableFuture.completedFuture((Void) null);
             } else {
                target = this.resolvePlayerUuid(parts[actionIndex + 1]);
                if (target == null) {
                   ctx.sendMessage(Message.raw(
-                        "Unknown player: " + parts[actionIndex + 1] + " (must have joined at least once)"));
+                        "Unknown player: " + parts[actionIndex + 1] + " (precisa ter entrado ao menos uma vez)"));
                   return CompletableFuture.completedFuture((Void) null);
                } else {
                   int perms;
@@ -198,8 +198,8 @@ public final class TotemProtecaoCommand extends AbstractAsyncCommand {
                   claim.setTrusted(target, perms);
                   store.markDirty();
                   var10001 = String.valueOf(target);
-                  ctx.sendMessage(Message.raw(
-                        "Permissions updated for " + var10001 + " perms=" + claim.getPermissionsFor(target)));
+                  ctx.sendMessage(Message
+                        .raw("Permissoes atualizadas para " + var10001 + " perms=" + claim.getPermissionsFor(target)));
                   return CompletableFuture.completedFuture((Void) null);
                }
             }
@@ -225,21 +225,22 @@ public final class TotemProtecaoCommand extends AbstractAsyncCommand {
    }
 
    private void sendUsage(CommandContext ctx) {
-      ctx.sendMessage(Message.raw("Usage: /totemprotecao radius <16|32|64|128>"));
-      ctx.sendMessage(Message.raw("Usage: /totemprotecao maxclaims <1-5>"));
-      ctx.sendMessage(Message.raw("Usage: /totemprotecao crafting <on|off>"));
-      ctx.sendMessage(Message.raw("Usage: /totemprotecao trust <centerX> <centerZ> <list|add|remove|set> ..."));
-      ctx.sendMessage(Message.raw("Usage: /totemprotecao trust here <list|add|remove|set> ..."));
+      ctx.sendMessage(Message.raw("Usage: /totem radius <16|32|64|128>"));
+      ctx.sendMessage(Message.raw("Usage: /totem maxclaims <1-5>"));
+      ctx.sendMessage(Message.raw("Usage: /totem crafting <on|off>"));
+      ctx.sendMessage(Message.raw("Usage: /totem trust <centerX> <centerZ> <list|add|remove|set> ..."));
+      ctx.sendMessage(Message.raw("Usage: /totem trust here <list|add|remove|set> ..."));
+      ctx.sendMessage(Message.raw("Usage: /preload"));
    }
 
    private void sendTrustUsage(CommandContext ctx) {
-      ctx.sendMessage(Message.raw("Usage: /totemprotecao trust <centerX> <centerZ> list"));
+      ctx.sendMessage(Message.raw("Usage: /totem trust <centerX> <centerZ> list"));
       ctx.sendMessage(Message.raw(
-            "Usage: /totemprotecao trust <centerX> <centerZ> add <playerName|playerUuid> [place|break|use|all|none]"));
+            "Usage: /totem trust <centerX> <centerZ> add <playerName|playerUuid> [place|break|use|all|none]"));
       ctx.sendMessage(Message.raw(
-            "Usage: /totemprotecao trust <centerX> <centerZ> set <playerName|playerUuid> [place|break|use|all|none]"));
-      ctx.sendMessage(Message.raw("Usage: /totemprotecao trust <centerX> <centerZ> remove <playerName|playerUuid>"));
-      ctx.sendMessage(Message.raw("Usage: /totemprotecao trust here <list|add|remove|set> ..."));
+            "Usage: /totem trust <centerX> <centerZ> set <playerName|playerUuid> [place|break|use|all|none]"));
+      ctx.sendMessage(Message.raw("Usage: /totem trust <centerX> <centerZ> remove <playerName|playerUuid>"));
+      ctx.sendMessage(Message.raw("Usage: /totem trust here <list|add|remove|set> ..."));
    }
 
    private UUID resolvePlayerUuid(String raw) {
