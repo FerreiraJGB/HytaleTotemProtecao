@@ -1,7 +1,7 @@
 {
   "TranslationProperties": {
     "Name": "Totem de Protecao",
-    "Description": "Gera uma area protegida temporaria. Pode ser recarregado com itens definidos pelo servidor."
+    "Description": "Gera uma área protegida temporaria. Pode ser recarregado com itens definidos pelo servidor."
   },
   "MaxStack": 1,
   "Icon": "Icons/ItemsGenerated/Furniture_Kweebec_Statue.png",
