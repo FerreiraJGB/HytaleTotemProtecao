@@ -127,6 +127,41 @@ public final class ClaimStore {
       }
    }
 
+   public synchronized boolean updateClaimCenterY(int centerX, int centerZ, int centerY) {
+      Claim existing = (Claim) this.claimsByCenter.get(centerKey(centerX, centerZ));
+      if (existing == null) {
+         return false;
+      } else if (existing.getCenterY() == centerY) {
+         return false;
+      } else {
+         Claim updated = new Claim(existing.getOwner(), existing.getOwnerName(), existing.getCenterX(), centerY,
+               existing.getCenterZ(), existing.getRadius(), existing.getTrusted(), existing.getProtectionEndsAtMs(),
+               existing.isProtectionPaused(), existing.getProtectionPausedRemainingMs());
+         this.claimsByCenter.put(centerKey(centerX, centerZ), updated);
+
+         for (int i = 0; i < this.claims.size(); ++i) {
+            if (this.claims.get(i) == existing) {
+               this.claims.set(i, updated);
+               break;
+            }
+         }
+
+         long bucketKey = chunkKey(floorDiv(centerX, 16), floorDiv(centerZ, 16));
+         List<Claim> bucket = (List) this.claimsByChunk.get(bucketKey);
+         if (bucket != null) {
+            for (int i = 0; i < bucket.size(); ++i) {
+               if (bucket.get(i) == existing) {
+                  bucket.set(i, updated);
+                  break;
+               }
+            }
+         }
+
+         this.dirty = true;
+         return true;
+      }
+   }
+
    public synchronized void markDirty() {
       this.dirty = true;
    }

@@ -67,12 +67,12 @@ $C.@DecoratedContainer {
           LayoutMode: Center;
           Padding: (Top: 2);
 
-          ItemIcon #VoidheartIcon {
+          ItemIcon #FooterItem1Icon {
             Anchor: (Width: 16, Height: 16);
             ItemId: "Ingredient_Voidheart";
           }
 
-          Label {
+          Label #FooterItem1Text {
             Padding: (Left: 6);
             Style: (FontSize: 12, TextColor: #b4c8c9);
             Text: "Corazon del Vacio = 12h";
@@ -83,12 +83,12 @@ $C.@DecoratedContainer {
           LayoutMode: Center;
           Padding: (Top: 2);
 
-          ItemIcon #EssenceIcon {
+          ItemIcon #FooterItem2Icon {
             Anchor: (Width: 16, Height: 16);
             ItemId: "Ingredient_Void_Essence";
           }
 
-          Label {
+          Label #FooterItem2Text {
             Padding: (Left: 6);
             Style: (FontSize: 12, TextColor: #b4c8c9);
             Text: "Esencia del Vacio = 4min";

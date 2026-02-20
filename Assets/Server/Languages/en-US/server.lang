@@ -1,3 +1,3 @@
 # === totemprotecao ===
 server.items.TotemProtecao_Block.name = Generador de Proteccion
-server.items.TotemProtecao_Block.description = Genera un area protegida temporal. Recarga sosteniendo el objeto en la mano y haciendo clic con el boton de interaccion. Acepta Corazon del Vacio (12h) y Esencia del Vacio (4min)
+server.items.TotemProtecao_Block.description = Genera un area protegida temporal. Se puede recargar con items definidos por el servidor.
